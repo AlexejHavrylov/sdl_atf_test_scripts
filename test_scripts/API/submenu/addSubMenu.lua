@@ -8,7 +8,7 @@
 -- 7)SDL must respond with (resultCode: SUCCESS, success:true) to mobile application.
 
 local runner = require('user_modules/script_runner')
-local common = require('test_scripts/MyScripts/commonMyScripts')  
+local common = require('test_scripts/API/submenucommonMyScripts')  
 
 runner.testSettings.isSelfIncluded = false
 
