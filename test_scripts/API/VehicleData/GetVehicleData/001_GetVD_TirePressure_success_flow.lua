@@ -29,7 +29,7 @@ local rpc = {
   }
 }
 
-local pressureDefault = 100
+local pressureDefault =  100,2
 local pressureDefaultDataSet = {status = "NORMAL", tpms = "SYSTEM_ACTIVE", pressure = pressureDefault}
 
 --[[ Local Functions ]]

@@ -7,7 +7,7 @@
 -- 7)SDL must respond with (resultCode: SUCCESS, success:true) to mobile application.
 
 local runner = require('user_modules/script_runner')
-local common = require('test_scripts/API/submenu/commonMyScripts')  
+local common = require('test_scripts/API/submenu/common')  
 
 runner.testSettings.isSelfIncluded = false
 local actions = require("user_modules/sequences/actions")
@@ -21,37 +21,6 @@ systemFile = false,
 offset =0,
 length =11600
 }
- 
-local sourceParam = 
-    {menuID = 1,
-    menuName ="SubMenuName",
-    position = 500
-}
-
-function addSubMenu(pParams)
-    requestParams = sourceParam    
-    local requestUiParams = {
-    menuID = requestParams.menuID,
-        menuParams = {
-        menuName = requestParams.menuName,
-        position = requestParams.position},
-        appID = actions.getHMIAppId()
-}
-
-    if  pParams ~=nil then
-        requestParams.menuIcon = pParams
-        requestUiParams.menuIcon = pParams 
-    end
-
- 
-local mobSession =actions.getMobileSession(pAppId)
-local hmiConnection = actions.getHMIConnection()
-local cid = mobSession:SendRPC("AddSubMenu",requestParams)
-    EXPECT_HMICALL("UI.AddSubMenu", requestUiParams)    :Do(function(_,data)
-        hmiConnection:SendResponse(data.id, data.method, "SUCCESS", {})
-        mobSession:ExpectResponse(cid, { success = true, resultCode = "SUCCESS"}) 
-        end)
-end 
 
 
 runner.Step("Precondition",common.preconditions)
@@ -60,6 +29,6 @@ runner.Step("Register App", common.registerApp)
 runner.Step("Activate App", common.activateApp)
 
 runner.Title("Test")
-runner.Step("Add Sub Menu with menuIcon",addSubMenu)
+runner.Step("Added menuIcon parameter",common.addSubMenu,menuIcon)
 
 runner.Step("Stop SDL", common.postconditions)

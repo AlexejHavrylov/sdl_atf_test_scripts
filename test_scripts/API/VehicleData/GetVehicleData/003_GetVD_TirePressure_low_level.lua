@@ -29,7 +29,7 @@ local rpc = {
   }
 }
 
-local tirePressureValue = 10
+local tirePressureValue = 100
 local lowPressureDataSet = {status = "ALERT", tpms = "LOW", pressure = tirePressureValue}
 
 --[[ Local Functions ]]

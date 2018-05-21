@@ -27,7 +27,7 @@ menuID = requestParams.menuID,
 local hmiConnection = extra_actions.getHMIConnection()
 local mobSession = extra_actions.getMobileSession(pAppId)
 
-local cid = mobSession:SendRPC("AddSubMenu",requestParams)
+local cid = mobSession:SendRPC("AddSubMenu",actions.requestParams)
     EXPECT_HMICALL("UI.AddSubMenu", requestUiParams)
     :Do(function(_,data)
         hmiConnection:SendResponse(data.id, data.method, "SUCCESS", {})
@@ -35,3 +35,4 @@ local cid = mobSession:SendRPC("AddSubMenu",requestParams)
         end)
     end 
 return  extra_actions
+ 
