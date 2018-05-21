@@ -41,11 +41,12 @@ function addSubMenu(pParams)
         appID = actions.getHMIAppId()
 }
 
-    if  pParams ~=nil  then
+    if  pParams ~=nil then
         requestParams.menuIcon = pParams
         requestUiParams.menuIcon = pParams
+    
+
     end
-     
 
 
 -- requestUiParams.menuIcon = pParams
@@ -53,8 +54,7 @@ function addSubMenu(pParams)
 local mobSession =actions.getMobileSession(pAppId)
 local hmiConnection = actions.getHMIConnection()
 local cid = mobSession:SendRPC("AddSubMenu",requestParams)
-    EXPECT_HMICALL("UI.AddSubMenu", requestUiParams)
-    :Do(function(_,data)
+    EXPECT_HMICALL("UI.AddSubMenu", requestUiParams)    :Do(function(_,data)
         hmiConnection:SendResponse(data.id, data.method, "SUCCESS", {})
         mobSession:ExpectResponse(cid, { success = true, resultCode = "SUCCESS"}) 
         end)
@@ -67,6 +67,6 @@ runner.Step("Register App", common.registerApp)
 runner.Step("Activate App", common.activateApp)
 
 runner.Title("Test")
-runner.Step("Add Sub Menu with menuIcon",addSubMenu,{menuIcon})
+runner.Step("Add Sub Menu with menuIcon",addSubMenu)
 
 runner.Step("Stop SDL", common.postconditions)
